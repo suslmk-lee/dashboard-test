@@ -38,17 +38,16 @@ pipeline {
         }
       }
     }
-    stage('Deploy Image') {
-      steps{
-        script {
-          docker.withRegistry('http://'+privateURL, registryCredential) {
-            dockerImage.push("$BUILD_NUMBER")
-             dockerImage.push('latest')
-
-          }
-        }
-      }
-    }
+    //stage('Deploy Image') {
+    //  steps{
+    //    script {
+    //      docker.withRegistry('http://'+privateURL, registryCredential) {
+    //        dockerImage.push("$BUILD_NUMBER")
+    //         dockerImage.push('latest')
+    //      }
+    //    }
+    //  }
+    //}
     stage('Kubernetes test') {
     	steps{
 	          sh("kubectl --kubeconfig /home/ubuntu/admin.conf get pod")
@@ -58,7 +57,7 @@ pipeline {
 		steps {
 			kubernetesDeploy (
 				configs: "Deployment.yaml", 
-				kubeconfigId: 'ba2afa89-27d1-4d27-8282-9e29aab044ef', 
+				kubeconfigId: '23b61cff-a44f-4199-9576-38b5642ab823', 
 				enableConfigSubstitution: true
 				//sh "kubectl --kubeconfig=/root/.jenkins/.kube/config rollout restart deployment/wildfly-deployment"
 				//kubernetesDeploy configs: 'hello-kubernetes-dep.yaml', kubeConfig: [path: ''], kubeconfigId: '13d30c98-310b-40a9-95bd-a05e7ab49d21', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
