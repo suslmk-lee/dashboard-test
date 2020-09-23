@@ -1,0 +1,118 @@
+spring:
+  application:
+    name: caas-dashboard
+
+management:
+  security:
+    enabled: false
+
+caas:
+  url: https://172.30.1.150:8443
+  cluster-name: "kubernetes"
+
+roleSet:
+  administratorCode: RS0001
+  regularUserCode: RS0002
+  initUserCode: RS0003
+  administratorName: Administrator
+  regularUserName: Regular User
+  initUserName: Init User
+
+private:
+  registry:
+    imageName: f9c10967-fdca-495e-a516-3ec406230944.private-image-repository.default.paasta-container-service.bosh:5000/registry:latest
+    url: 172.30.1.150
+---
+spring:
+  profiles:
+    active: local
+  freemarker:
+    template-loader-path: classpath:/templates/
+
+logging:
+  level:
+    ROOT: INFO
+  path: classpath:logback-spring.xml
+  file: logs/application.log
+
+server:
+  port: ${PORT:8091}
+
+caasApi:
+  url: http://localhost:3333
+  authorization:
+    id: admin
+    password: PaaS-TA
+
+commonApi:
+  url: http://localhost:3334
+  authorization:
+    id: admin
+    password: PaaS-TA
+
+cf:
+  uaa:
+    oauth:
+      info:
+        uri: https://uaa.rexrun.net/userinfo
+      token:
+        check:
+          uri: https://uaa.rexrun.net/check_token
+        access:
+          uri: https://uaa.rexrun.net/oauth/token
+      logout:
+        url: https://uaa.rexrun.net/logout
+      authorization:
+        uri: https://uaa.rexrun.net/oauth/authorize
+      client:
+        id: caasclient
+        secret: clientsecret
+  api:
+    url: https://api.rexrun.net
+
+---
+spring:
+  profiles: dev
+  freemarker:
+    template-loader-path: classpath:/templates/
+
+logging:
+  level:
+    ROOT: INFO
+  path: classpath:logback-spring.xml
+  file: logs/application.log
+
+server:
+  port: ${PORT:8091}
+
+caasApi:
+  url: http://10.30.107.31:3333
+  authorization:
+    id: admin
+    password: PaaS-TA
+
+commonApi:
+  url: http://10.30.107.33:3334
+  authorization:
+    id: admin
+    password: PaaS-TA
+
+cf:
+  uaa:
+    oauth:
+      info:
+        uri: https://uaa.172.30.50.4.xip.io/userinfo
+      token:
+        check:
+          uri: https://uaa.172.30.50.4.xip.io/check_token
+        access:
+          uri: https://uaa.172.30.50.4.xip.io/oauth/token
+      logout:
+        url: https://uaa.172.30.50.4.xip.io/logout
+      authorization:
+        uri: https://uaa.172.30.50.4.xip.io/oauth/authorize
+      client:
+        id: caasclient
+        secret: clientsecret
+  api:
+    url: https://api.172.30.50.4.xip.io
