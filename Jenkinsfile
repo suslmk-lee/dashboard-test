@@ -7,9 +7,9 @@ pipeline {
   }
   agent any
   stages {
-    stage('Cloning SCM') {
+    stage('Cloning Github') {
       steps {
-        checkout scm
+        git branch: 'development', credentialsId: 'suslmk-lee', url: 'https://github.com/suslmk-lee/dashboard-test.git'
       }
     }
 	stage('Environment') {
