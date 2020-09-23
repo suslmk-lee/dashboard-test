@@ -48,11 +48,11 @@ pipeline {
     //    }
     //  }
     //}
-    stage('Kubernetes test') {
-    	steps{
-	          sh("kubectl --kubeconfig /home/ubuntu/admin.conf get pod")
-	    }
-	}
+    //stage('Kubernetes test') {
+    //	steps{
+	//          sh("kubectl --kubeconfig /home/ubuntu/admin.conf get pod")
+	//    }
+	//}
     stage('Kubernetes deploy') {
 		steps {
 			kubernetesDeploy (
