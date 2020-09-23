@@ -64,12 +64,11 @@ pipeline {
 			)
 		}
 	}
-    stage('Remove Unused docker image') {
-      steps{
-        sh "docker rmi $privateURL/$imagename:$BUILD_NUMBER"
-         sh "docker rmi $privateURL/$imagename:latest"
-
-      }
-    }
+    //stage('Remove Unused docker image') {
+    //  steps{
+    //    sh "docker rmi $privateURL/$imagename:$BUILD_NUMBER"
+    //     sh "docker rmi $privateURL/$imagename:latest"
+    //  }
+    //}
   }
 }
