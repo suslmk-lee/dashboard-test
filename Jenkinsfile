@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Cloning Github') {
       steps {
-        git branch: 'master', credentialsId: 'suslmk-lee', url: 'https://github.com/suslmk-lee/dashboard-test'
+        git branch: 'dev', credentialsId: 'suslmk-lee', url: 'https://github.com/PaaS-TA/paas-ta-container-platform-webuser'
       }
     }
 	stage('Environment') {
@@ -38,21 +38,6 @@ pipeline {
         }
       }
     }
-    //stage('Deploy Image') {
-    //  steps{
-    //    script {
-    //      docker.withRegistry('http://'+privateURL, registryCredential) {
-    //        dockerImage.push("$BUILD_NUMBER")
-    //         dockerImage.push('latest')
-    //      }
-    //    }
-    //  }
-    //}
-    //stage('Kubernetes test') {
-    //	steps{
-	//          sh("kubectl --kubeconfig /home/ubuntu/admin.conf get pod")
-	//    }
-	//}
     stage('Kubernetes deploy') {
 		steps {
 			kubernetesDeploy (
@@ -64,11 +49,5 @@ pipeline {
 			)
 		}
 	}
-    //stage('Remove Unused docker image') {
-    //  steps{
-    //    sh "docker rmi $privateURL/$imagename:$BUILD_NUMBER"
-    //     sh "docker rmi $privateURL/$imagename:latest"
-    //  }
-    //}
   }
 }
